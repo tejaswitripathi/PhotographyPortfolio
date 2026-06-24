@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Photography Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main id="app" class="app" data-mode="main" data-main-slide="0" data-shoot="0">
+      <section id="main-stage" class="main-stage" aria-label="Portfolio sections">
+        <div class="main-track" id="main-track">
+          <article class="main-slide is-active" data-page="about" aria-label="About">
+            <img class="stage-media" src="assets/main/clip_1.avif" alt="">
+            <button class="page-button about-button" type="button" data-action="open-current" aria-label="Open about">
+              <img src="assets/buttons/about.png" alt="About">
+            </button>
+          </article>
+
+          <article class="main-slide" data-page="selected-shoots" aria-label="Selected shoots">
+            <img class="stage-media" src="assets/main/clip_2.avif" alt="">
+            <button class="page-button selected-button" type="button" data-action="open-current" aria-label="Open selected shoots">
+              <img src="assets/buttons/selected-shoots.png" alt="Selected shoots">
+            </button>
+          </article>
+
+          <article class="main-slide" data-page="videography" aria-label="Videography">
+            <img class="stage-media" src="assets/main/clip_3.avif" alt="">
+            <button class="page-button video-button" type="button" data-action="open-current" aria-label="Open videography">
+              <img src="assets/buttons/videography.png" alt="Videography">
+            </button>
+          </article>
+        </div>
+
+        <button class="nav-arrow nav-arrow-left" type="button" data-action="previous-main" aria-label="Previous page">&lt;</button>
+        <button class="nav-arrow nav-arrow-right" type="button" data-action="next-main" aria-label="Next page">&gt;</button>
+      </section>
+
+      <section id="shoots-stage" class="shoots-stage" aria-label="Selected shoots">
+        <button class="shoots-back" type="button" data-action="back-from-shoots" aria-label="Back to about">←</button>
+
+        <div class="shoot-backgrounds" aria-hidden="true">
+          <img class="shoot-bg is-active" src="assets/selected_shoots/dark_fantasy/cover.jpg" alt="">
+          <img class="shoot-bg" src="assets/selected_shoots/orbital_opulence/cover.jpg" alt="">
+          <img class="shoot-bg" src="assets/selected_shoots/game_on/cover.jpg" alt="">
+        </div>
+
+        <div class="shoot-orbit" id="shoot-orbit">
+          <article class="shoot-card is-active" data-shoot-index="0" tabindex="0" aria-label="Dark fantasy">
+            <img class="shoot-thumb" src="assets/selected_shoots/dark_fantasy/thumbnail.png" alt="Dark fantasy">
+            <div class="shoot-actions">
+              <button class="shoot-button" type="button" data-action="open-shoot" aria-label="Open dark fantasy">
+                <img src="assets/buttons/dark_fantasy.png" alt="Dark fantasy">
+              </button>
+              <div class="shoot-stepper" aria-label="Change selected shoot">
+                <button class="shoot-step" type="button" data-action="previous-shoot" aria-label="Previous shoot">↑</button>
+                <button class="shoot-step" type="button" data-action="next-shoot" aria-label="Next shoot">↓</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="shoot-card is-next" data-shoot-index="1" tabindex="0" aria-label="Orbital opulence">
+            <img class="shoot-thumb" src="assets/selected_shoots/orbital_opulence/thumbnail.png" alt="Orbital opulence">
+            <div class="shoot-actions">
+              <button class="shoot-button wide" type="button" data-action="open-shoot" aria-label="Open orbital opulence">
+                <img src="assets/buttons/orbital_opulence.png" alt="Orbital opulence">
+              </button>
+              <div class="shoot-stepper" aria-label="Change selected shoot">
+                <button class="shoot-step" type="button" data-action="previous-shoot" aria-label="Previous shoot">↑</button>
+                <button class="shoot-step" type="button" data-action="next-shoot" aria-label="Next shoot">↓</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="shoot-card" data-shoot-index="2" tabindex="0" aria-label="Game on">
+            <img class="shoot-thumb" src="assets/selected_shoots/game_on/thumbnail.png" alt="Game on">
+            <div class="shoot-actions">
+              <button class="shoot-button" type="button" data-action="open-shoot" aria-label="Open game on">
+                <img src="assets/buttons/game_on.png" alt="Game on">
+              </button>
+              <div class="shoot-stepper" aria-label="Change selected shoot">
+                <button class="shoot-step" type="button" data-action="previous-shoot" aria-label="Previous shoot">↑</button>
+                <button class="shoot-step" type="button" data-action="next-shoot" aria-label="Next shoot">↓</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="shoot-detail" class="shoot-detail" aria-label="Shoot gallery">
+        <button class="nav-arrow nav-arrow-left detail-back" type="button" data-action="close-shoot" aria-label="Back to selected shoots">&lt;</button>
+        <div class="detail-bg" aria-hidden="true"></div>
+        <div class="detail-strip" id="detail-strip"></div>
+      </section>
+    </main>
+
+    <audio id="click-sound" src="assets/sounds/click.m4a" preload="auto"></audio>
+    <audio id="enter-sound" src="assets/sounds/enter.m4a" preload="auto"></audio>
+    <audio id="back-sound" src="assets/sounds/back.m4a" preload="auto"></audio>
+    <audio id="main-sound" src="assets/sounds/phantom.opus" preload="auto" autoplay muted loop playsinline></audio>
+
+    <button id="music-toggle" class="music-toggle" type="button" aria-label="Mute music" aria-pressed="false">
+      <span class="music-note" aria-hidden="true">♪</span>
+    </button>
+
+    <script src="script.js"></script>
+  </body>
+</html>
