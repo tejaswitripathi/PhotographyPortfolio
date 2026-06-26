@@ -1,0 +1,38 @@
+{
+    "cover.avif": {
+        "camera": "Sony a7 IV",
+        "lens": "Sony E 16mm f2.8 with fisheye",
+        "shutter speed": "1/30",
+        "ISO": "2000",
+        "models": ["m0staa_"]
+    },
+    "_DSC7595.avif": {
+        "camera": "Sony a7 IV",
+        "lens": "Sony E 16mm f2.8 with fisheye",
+        "shutter speed": "1/30",
+        "ISO": "5000",
+        "models": ["maya.bhatii"]
+    },
+    "_DSC7648.avif": {
+        "camera": "Sony a7 IV",
+       "lens": "Sony E 16mm f2.8 with fisheye",
+        "shutter speed": "1/30",
+        "ISO": "3200",
+        "models": ["joshywoshyboii"]
+    },
+    "_DSC7763.avif": {
+        "camera": "Sony a7 IV",
+        "lens": "Sony E 16mm f2.8 with fisheye",
+        "shutter speed": "1/50",
+        "ISO": "2500",
+        "models": ["_yerin_yun"]
+    },
+    "_DSC7935.avif": {
+        "camera": "Sony a7 IV",
+        "lens": "Sony E 16mm f2.8 with fisheye",
+        "shutter speed": "1/30",
+        "ISO": "2000",
+        "models": ["_yerin_yun", "weocam"]
+    },
+    "display": "Shot on {camera}, {lens} \n ISO {ISO}, {shutter speed} \n Model(s): {models}"
+}

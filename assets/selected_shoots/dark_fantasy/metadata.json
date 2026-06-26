@@ -1,0 +1,43 @@
+{
+    "cover.avif": {
+        "camera": "Sony a7 IV",
+        "lens": "FE 24-105mm F4 G OSS",
+        "shutter speed": "1/100",
+        "ISO": "800",
+        "text": "The knight embarks on his journey with no helmet.",
+        "models": ["joshywoshyboii"]
+    },
+    "_DSC7595.avif": {
+        "camera": "Sony a7 IV",
+        "lens": "FE 24-105mm F4 G OSS",
+        "shutter speed": "1/30",
+        "ISO": "5000",
+        "text": "",
+        "models": ["maya.bhatii"]
+    },
+    "_DSC7648.avif": {
+        "camera": "Sony a7 IV",
+       "lens": "FE 24-105mm F4 G OSS",
+        "shutter speed": "1/30",
+        "ISO": "3200",
+        "text": "",
+        "models": ["joshywoshyboii"]
+    },
+    "_DSC7763.avif": {
+        "camera": "Sony a7 IV",
+        "lens": "FE 24-105mm F4 G OSS",
+        "shutter speed": "1/50",
+        "ISO": "2500",
+        "text": "",
+        "models": ["_yerin_yun"]
+    },
+    "_DSC7935.avif": {
+        "camera": "Sony a7 IV",
+        "lens": "FE 24-105mm F4 G OSS",
+        "shutter speed": "1/30",
+        "ISO": "2000",
+        "text": "",
+        "models": ["_yerin_yun", "weocam"]
+    },
+    "display": "Shot on {camera}, {lens} \n ISO {ISO}, {shutter speed} \n Model(s): {models}"
+}

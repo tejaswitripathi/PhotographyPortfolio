@@ -11,23 +11,32 @@
       <section id="main-stage" class="main-stage" aria-label="Portfolio sections">
         <div class="main-track" id="main-track">
           <article class="main-slide is-active" data-page="about" aria-label="About">
-            <img class="stage-media" src="assets/main/clip_1.avif" alt="">
+            <video class="stage-media" autoplay muted loop playsinline preload="auto" poster="assets/main/clip_1.avif" aria-hidden="true">
+              <source src="assets/main/clip_1.webm" type="video/webm">
+              <source src="assets/main/clip_1.mp4" type="video/mp4">
+            </video>
             <button class="page-button about-button" type="button" data-action="open-current" aria-label="Open about">
-              <img src="assets/buttons/about.png" alt="About">
+              <img src="assets/buttons/about.avif" alt="About">
             </button>
           </article>
 
           <article class="main-slide" data-page="selected-shoots" aria-label="Selected shoots">
-            <img class="stage-media" src="assets/main/clip_2.avif" alt="">
+            <video class="stage-media" autoplay muted loop playsinline preload="auto" poster="assets/main/clip_2.avif" aria-hidden="true">
+              <source src="assets/main/clip_2.webm" type="video/webm">
+              <source src="assets/main/clip_2.mp4" type="video/mp4">
+            </video>
             <button class="page-button selected-button" type="button" data-action="open-current" aria-label="Open selected shoots">
-              <img src="assets/buttons/selected-shoots.png" alt="Selected shoots">
+              <img src="assets/buttons/selected-shoots.avif" alt="Selected shoots">
             </button>
           </article>
 
           <article class="main-slide" data-page="videography" aria-label="Videography">
-            <img class="stage-media" src="assets/main/clip_3.avif" alt="">
+            <video class="stage-media" autoplay muted loop playsinline preload="auto" poster="assets/main/clip_3.avif" aria-hidden="true">
+              <source src="assets/main/clip_3.webm" type="video/webm">
+              <source src="assets/main/clip_3.mp4" type="video/mp4">
+            </video>
             <button class="page-button video-button" type="button" data-action="open-current" aria-label="Open videography">
-              <img src="assets/buttons/videography.png" alt="Videography">
+              <img src="assets/buttons/videography.avif" alt="Videography">
             </button>
           </article>
         </div>
@@ -37,20 +46,20 @@
       </section>
 
       <section id="shoots-stage" class="shoots-stage" aria-label="Selected shoots">
-        <button class="shoots-back" type="button" data-action="back-from-shoots" aria-label="Back to about">←</button>
+        <button class="shoots-back" type="button" data-action="back-from-shoots" aria-label="Back to selected shoots">←</button>
 
         <div class="shoot-backgrounds" aria-hidden="true">
-          <img class="shoot-bg is-active" src="assets/selected_shoots/dark_fantasy/cover.jpg" alt="">
-          <img class="shoot-bg" src="assets/selected_shoots/orbital_opulence/cover.jpg" alt="">
-          <img class="shoot-bg" src="assets/selected_shoots/game_on/cover.jpg" alt="">
+          <img class="shoot-bg is-active" src="assets/selected_shoots/dark_fantasy/cover.avif" alt="">
+          <img class="shoot-bg" src="assets/selected_shoots/orbital_opulence/cover.avif" alt="">
+          <img class="shoot-bg" src="assets/selected_shoots/game_on/cover.avif" alt="">
         </div>
 
         <div class="shoot-orbit" id="shoot-orbit">
           <article class="shoot-card is-active" data-shoot-index="0" tabindex="0" aria-label="Dark fantasy">
-            <img class="shoot-thumb" src="assets/selected_shoots/dark_fantasy/thumbnail.png" alt="Dark fantasy">
+            <img class="shoot-thumb" src="assets/selected_shoots/dark_fantasy/thumbnail.avif" alt="Dark fantasy">
             <div class="shoot-actions">
               <button class="shoot-button" type="button" data-action="open-shoot" aria-label="Open dark fantasy">
-                <img src="assets/buttons/dark_fantasy.png" alt="Dark fantasy">
+                <img src="assets/buttons/dark_fantasy.avif" alt="Dark fantasy">
               </button>
               <div class="shoot-stepper" aria-label="Change selected shoot">
                 <button class="shoot-step" type="button" data-action="previous-shoot" aria-label="Previous shoot">↑</button>
@@ -60,10 +69,10 @@
           </article>
 
           <article class="shoot-card is-next" data-shoot-index="1" tabindex="0" aria-label="Orbital opulence">
-            <img class="shoot-thumb" src="assets/selected_shoots/orbital_opulence/thumbnail.png" alt="Orbital opulence">
+            <img class="shoot-thumb" src="assets/selected_shoots/orbital_opulence/thumbnail.avif" alt="Orbital opulence">
             <div class="shoot-actions">
               <button class="shoot-button wide" type="button" data-action="open-shoot" aria-label="Open orbital opulence">
-                <img src="assets/buttons/orbital_opulence.png" alt="Orbital opulence">
+                <img src="assets/buttons/orbital_opulence.avif" alt="Orbital opulence">
               </button>
               <div class="shoot-stepper" aria-label="Change selected shoot">
                 <button class="shoot-step" type="button" data-action="previous-shoot" aria-label="Previous shoot">↑</button>
@@ -73,10 +82,10 @@
           </article>
 
           <article class="shoot-card" data-shoot-index="2" tabindex="0" aria-label="Game on">
-            <img class="shoot-thumb" src="assets/selected_shoots/game_on/thumbnail.png" alt="Game on">
+            <img class="shoot-thumb" src="assets/selected_shoots/game_on/thumbnail.avif" alt="Game on">
             <div class="shoot-actions">
               <button class="shoot-button" type="button" data-action="open-shoot" aria-label="Open game on">
-                <img src="assets/buttons/game_on.png" alt="Game on">
+                <img src="assets/buttons/game_on.avif" alt="Game on">
               </button>
               <div class="shoot-stepper" aria-label="Change selected shoot">
                 <button class="shoot-step" type="button" data-action="previous-shoot" aria-label="Previous shoot">↑</button>
@@ -91,6 +100,65 @@
         <button class="nav-arrow nav-arrow-left detail-back" type="button" data-action="close-shoot" aria-label="Back to selected shoots">&lt;</button>
         <div class="detail-bg" aria-hidden="true"></div>
         <div class="detail-strip" id="detail-strip"></div>
+      </section>
+
+      <section id="orbital-detail" class="orbital-detail" aria-label="Orbital Opulence">
+        <video id="orbital-bg" class="orbital-bg" autoplay muted playsinline preload="auto" poster="assets/selected_shoots/orbital_opulence/background.avif" aria-hidden="true">
+          <source src="assets/selected_shoots/orbital_opulence/background.webm" type="video/webm">
+          <source src="assets/selected_shoots/orbital_opulence/background.mp4" type="video/mp4">
+        </video>
+        <button id="orbital-skip" class="orbital-skip" type="button" aria-label="Skip opening">skip →</button>
+        <div id="orbital-grid" class="orbital-grid" aria-label="Orbital Opulence images"></div>
+        <a class="orbital-credit" href="https://www.instagram.com/tfnuiuc/?hl=en" target="_blank" rel="noreferrer">@tfnuiuc</a>
+        <div id="orbital-lightbox" class="orbital-lightbox" aria-hidden="true">
+          <img id="orbital-lightbox-img" src="" alt="Orbital Opulence enlarged">
+        </div>
+      </section>
+
+      <section id="game-detail" class="game-detail" aria-label="Game On">
+        <button class="section-back game-detail-back" type="button" data-action="close-game" aria-label="Back to selected shoots">←</button>
+        <video id="game-bg" class="game-bg" autoplay muted playsinline preload="auto" poster="assets/selected_shoots/game_on/opening.avif" aria-hidden="true">
+          <source src="assets/selected_shoots/game_on/opening.webm" type="video/webm">
+          <source src="assets/selected_shoots/game_on/opening.mp4" type="video/mp4">
+        </video>
+        <button id="game-skip" class="game-skip" type="button" aria-label="Skip opening">skip →</button>
+        <div id="game-carousel" class="game-carousel" aria-label="Game On images"></div>
+        <button id="game-prev" class="game-arrow game-arrow-left" type="button" aria-label="Previous Game On image">&lt;</button>
+        <button id="game-next" class="game-arrow game-arrow-right" type="button" aria-label="Next Game On image">&gt;</button>
+        <div id="game-meta" class="game-meta" aria-live="polite"></div>
+        <div id="game-lightbox" class="game-lightbox" aria-hidden="true">
+          <img id="game-lightbox-img" src="" alt="Game On enlarged">
+        </div>
+      </section>
+
+      <section id="about-detail" class="about-detail" aria-label="About Tejaswi">
+        <button class="section-back about-detail-back" type="button" data-action="close-about" aria-label="Back to main menu">←</button>
+        <video class="section-media about-media" autoplay muted loop playsinline preload="auto" poster="assets/about/about.avif" aria-hidden="true">
+          <source src="assets/about/about.webm" type="video/webm">
+          <source src="assets/about/about.mp4" type="video/mp4">
+        </video>
+        <div class="about-panel">
+          <p id="about-copy" class="about-copy"></p>
+          <div class="about-copy-controls">
+            <button id="about-up" class="section-step" type="button" data-action="previous-about" aria-label="Previous about text">↑</button>
+            <button id="about-down" class="section-step" type="button" data-action="next-about" aria-label="Next about text">↓</button>
+          </div>
+        </div>
+        <button id="contact-button" class="contact-button enter-button" type="button" aria-label="Show Instagram contact">
+          <img src="assets/buttons/contact.avif" alt="Contact">
+        </button>
+        <a id="instagram-link" class="instagram-link" href="https://www.instagram.com/josephotoast/?hl=en" target="_blank" rel="noreferrer">@josephotoast</a>
+      </section>
+
+      <section id="video-detail" class="video-detail" aria-label="Videography preview">
+        <button class="section-back video-detail-back" type="button" data-action="close-video" aria-label="Back to main menu">←</button>
+        <video class="section-media video-media" autoplay muted loop playsinline preload="auto" poster="assets/videography/videography.avif" aria-hidden="true">
+          <source src="assets/videography/videography.webm" type="video/webm">
+          <source src="assets/videography/videography.mp4" type="video/mp4">
+        </video>
+        <a id="check-it-out" class="check-button enter-button" href="https://www.youtube.com/watch?v=KhVcjx1VHxk" target="_blank" rel="noreferrer" aria-label="Open videography video">
+          <img src="assets/buttons/check-it-out.avif" alt="Check it out">
+        </a>
       </section>
     </main>
 

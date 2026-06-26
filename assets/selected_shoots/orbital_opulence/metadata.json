@@ -1,0 +1,38 @@
+{
+    "cover.avif": {
+        "camera": "Sony a7 IV",
+        "lens": "Sony FE 35mm f1.8",
+        "shutter speed": "1/80",
+        "ISO": "1600",
+        "models": ["kennedy00928"]
+    },
+    "_DSC0020.avif": {
+        "camera": "Sony a7 IV",
+        "lens": "Sony FE 35mm f1.8",
+        "shutter speed": "1/40",
+        "ISO": "5000",
+        "models": ["kennedy00928", "mk_goddesssss", "shy_town15"]
+    },
+    "_DSC0096.avif": {
+        "camera": "Sony a7 IV",
+        "lens": "Sony FE 35mm f1.8",
+        "shutter speed": "1/60",
+        "ISO": "3200",
+        "models": ["kai1shere_", "mk_goddesssss"]
+    },
+    "_DSC9969.avif": {
+        "camera": "Sony a7 IV",
+        "lens": "Sony FE 35mm f1.8",
+        "shutter speed": "1/80",
+        "ISO": "1600",
+        "models": ["ava_lynn003"]
+    },
+    "_DSC0113.avif": {
+        "camera": "Sony a7 IV",
+        "lens": "Sony FE 35mm f1.8",
+        "shutter speed": "1/13",
+        "ISO": "160",
+        "models": ["mk_goddesssss"]
+    },
+    "display": "Shot on {camera}, {lens} \n ISO {ISO}, {shutter speed} \n Model(s): {models}"
+}
