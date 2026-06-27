@@ -48,6 +48,7 @@ const mainSound = document.querySelector("#main-sound");
 
 const mainPages = ["about", "selected-shoots", "videography"];
 const youtubeUrl = "https://www.youtube.com/watch?v=KhVcjx1VHxk";
+const mobileExperienceQuery = window.matchMedia("(max-width: 820px), (pointer: coarse)");
 const darkBgPosterSrc = "assets/selected_shoots/dark_fantasy/df_bg_poster.avif";
 const darkBgLoopPosterSrc = "assets/selected_shoots/dark_fantasy/df_bg_loop_poster.avif";
 const darkBgSrc = "assets/selected_shoots/dark_fantasy/df_bg.webm";
@@ -329,6 +330,10 @@ function playVisualVideo(video) {
 
 function playVisualVideos() {
   visualVideos.forEach(playVisualVideo);
+}
+
+function isMobileExperience() {
+  return mobileExperienceQuery.matches;
 }
 
 function setVideoAsset(video, posterSrc, options = {}) {
@@ -799,6 +804,13 @@ function openDark() {
   selectDarkImage(darkSelectedIndex);
   darkAmbienceAudio.currentTime = 0;
   darkSecundaAudio.currentTime = 0;
+  if (isMobileExperience()) {
+    darkDetail.classList.remove("is-opening");
+    setMode("dark");
+    startDarkBookLoop(true);
+    return;
+  }
+
   switchDarkVideo(darkBgSrc, {
     restart: true,
     state: "opening"
@@ -966,6 +978,12 @@ function openOrbital() {
   selectOrbitalImage(orbitalSelectedIndex);
   clearTimeout(orbitalRevealTimer);
   setMode("orbital");
+  if (isMobileExperience()) {
+    switchOrbitalVideo(orbitalLoopSrc, true, true);
+    revealOrbitalGrid();
+    return;
+  }
+
   switchOrbitalVideo(orbitalOpeningSrc, true, false);
   orbitalRevealTimer = setTimeout(revealOrbitalGrid, orbitalRevealSeconds * 1000);
 }
@@ -1138,6 +1156,14 @@ function openGame() {
   gameAmbienceAudio.currentTime = 0;
   selectGameImage(gameSelectedIndex);
   setMode("game");
+  if (isMobileExperience()) {
+    gameLooping = true;
+    switchGameVideo(gameLoopSrc, true, true);
+    revealGameGallery();
+    syncAmbientAudio();
+    return;
+  }
+
   gameRevealTimer = setTimeout(revealGameGallery, gameRevealSeconds * 1000);
   gameOpeningTimer = setTimeout(completeGameOpening, gameOpeningSeconds * 1000);
 }
