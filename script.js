@@ -25,6 +25,7 @@ const darkSkip = document.querySelector("#dark-skip");
 const darkLightbox = document.querySelector("#dark-lightbox");
 const darkLightboxImg = document.querySelector("#dark-lightbox-img");
 const orbitalDetail = document.querySelector("#orbital-detail");
+const orbitalBack = document.querySelector(".orbital-detail-back");
 const orbitalVideo = document.querySelector("#orbital-bg");
 const orbitalGrid = document.querySelector("#orbital-grid");
 const orbitalSkip = document.querySelector("#orbital-skip");
@@ -325,6 +326,10 @@ function playOneShot(sound) {
 
 function playVisualVideo(video) {
   if (!video) return;
+  video.muted = true;
+  video.playsInline = true;
+  video.setAttribute("playsinline", "");
+  video.setAttribute("webkit-playsinline", "");
   video.play().catch(() => {});
 }
 
@@ -334,6 +339,42 @@ function playVisualVideos() {
 
 function isMobileExperience() {
   return mobileExperienceQuery.matches;
+}
+
+function orderVideoSources(video) {
+  if (!video) return;
+
+  const mobile = isMobileExperience();
+  const sources = [...video.querySelectorAll("source")];
+  sources
+    .sort((a, b) => {
+      const rank = (source) => {
+        if (mobile) {
+          if (source.type === "video/mp4" && source.media) return 0;
+          if (source.type === "video/mp4") return 1;
+          if (source.type === "video/webm") return 2;
+          return 3;
+        }
+
+        if (source.type === "video/webm") return 0;
+        if (source.type === "video/mp4" && !source.media) return 1;
+        if (source.type === "video/mp4") return 2;
+        return 3;
+      };
+
+      return rank(a) - rank(b);
+    })
+    .forEach((source) => video.append(source));
+}
+
+function refreshVideoSourceOrder() {
+  visualVideos.forEach((video) => {
+    orderVideoSources(video);
+    if (isMobileExperience()) {
+      video.load();
+      playVisualVideo(video);
+    }
+  });
 }
 
 function setVideoAsset(video, posterSrc, options = {}) {
@@ -353,6 +394,7 @@ function setVideoAsset(video, posterSrc, options = {}) {
     const nextSrc = sourceByType[source.type];
     if (nextSrc) source.src = nextSrc;
   });
+  orderVideoSources(video);
   video.load();
   video.currentTime = 0;
   playVisualVideo(video);
@@ -780,7 +822,7 @@ function closeDarkLightbox() {
 }
 
 function skipDarkOpening() {
-  if (darkVideoState !== "opening") return;
+  if (mode !== "dark" || darkDetail.classList.contains("is-ready")) return;
   startDarkBookLoop(true);
 }
 
@@ -804,13 +846,6 @@ function openDark() {
   selectDarkImage(darkSelectedIndex);
   darkAmbienceAudio.currentTime = 0;
   darkSecundaAudio.currentTime = 0;
-  if (isMobileExperience()) {
-    darkDetail.classList.remove("is-opening");
-    setMode("dark");
-    startDarkBookLoop(true);
-    return;
-  }
-
   switchDarkVideo(darkBgSrc, {
     restart: true,
     state: "opening"
@@ -963,6 +998,7 @@ function switchOrbitalVideo(src, shouldRestart = false, shouldLoop = false) {
 }
 
 function skipOrbitalOpening() {
+  if (mode !== "orbital" || orbitalDetail.classList.contains("is-revealed")) return;
   clearTimeout(orbitalRevealTimer);
   switchOrbitalVideo(orbitalLoopSrc, true, true);
   revealOrbitalGrid();
@@ -978,12 +1014,6 @@ function openOrbital() {
   selectOrbitalImage(orbitalSelectedIndex);
   clearTimeout(orbitalRevealTimer);
   setMode("orbital");
-  if (isMobileExperience()) {
-    switchOrbitalVideo(orbitalLoopSrc, true, true);
-    revealOrbitalGrid();
-    return;
-  }
-
   switchOrbitalVideo(orbitalOpeningSrc, true, false);
   orbitalRevealTimer = setTimeout(revealOrbitalGrid, orbitalRevealSeconds * 1000);
 }
@@ -1156,14 +1186,6 @@ function openGame() {
   gameAmbienceAudio.currentTime = 0;
   selectGameImage(gameSelectedIndex);
   setMode("game");
-  if (isMobileExperience()) {
-    gameLooping = true;
-    switchGameVideo(gameLoopSrc, true, true);
-    revealGameGallery();
-    syncAmbientAudio();
-    return;
-  }
-
   gameRevealTimer = setTimeout(revealGameGallery, gameRevealSeconds * 1000);
   gameOpeningTimer = setTimeout(completeGameOpening, gameOpeningSeconds * 1000);
 }
@@ -1621,6 +1643,12 @@ orbitalSkip.addEventListener("click", () => {
   skipOrbitalOpening();
 });
 
+orbitalBack.addEventListener("click", () => {
+  unlockAudio();
+  playOneShot(backSound);
+  closeOrbital();
+});
+
 orbitalLightbox.addEventListener("click", () => {
   unlockAudio();
   playOneShot(backSound);
@@ -1809,5 +1837,11 @@ function hydrateFromHash() {
 }
 
 window.addEventListener("hashchange", hydrateFromHash);
+if (mobileExperienceQuery.addEventListener) {
+  mobileExperienceQuery.addEventListener("change", refreshVideoSourceOrder);
+} else {
+  mobileExperienceQuery.addListener(refreshVideoSourceOrder);
+}
+refreshVideoSourceOrder();
 updateMusicToggle();
 hydrateFromHash();

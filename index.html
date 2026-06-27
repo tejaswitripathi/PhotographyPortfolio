@@ -4,14 +4,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Photography Portfolio</title>
-    <link rel="stylesheet" href="styles.css?v=20260627-mobile-1">
+    <link rel="stylesheet" href="styles.css?v=20260627-mobile-video-1">
   </head>
   <body>
     <main id="app" class="app" data-mode="main" data-main-slide="0" data-shoot="0">
       <section id="main-stage" class="main-stage" aria-label="Portfolio sections">
         <div class="main-track" id="main-track">
           <article class="main-slide is-active" data-page="about" aria-label="About">
-            <video class="stage-media" autoplay muted loop playsinline preload="auto" poster="assets/main/clip_1.avif" aria-hidden="true">
+            <video class="stage-media" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/main/clip_1.avif" aria-hidden="true">
+              <source src="assets/main/clip_1.mp4" type="video/mp4" media="(max-width: 820px)">
               <source src="assets/main/clip_1.webm" type="video/webm">
               <source src="assets/main/clip_1.mp4" type="video/mp4">
             </video>
@@ -21,7 +22,8 @@
           </article>
 
           <article class="main-slide" data-page="selected-shoots" aria-label="Selected shoots">
-            <video class="stage-media" autoplay muted loop playsinline preload="auto" poster="assets/main/clip_2.avif" aria-hidden="true">
+            <video class="stage-media" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/main/clip_2.avif" aria-hidden="true">
+              <source src="assets/main/clip_2.mp4" type="video/mp4" media="(max-width: 820px)">
               <source src="assets/main/clip_2.webm" type="video/webm">
               <source src="assets/main/clip_2.mp4" type="video/mp4">
             </video>
@@ -31,7 +33,8 @@
           </article>
 
           <article class="main-slide" data-page="videography" aria-label="Videography">
-            <video class="stage-media" autoplay muted loop playsinline preload="auto" poster="assets/main/clip_3.avif" aria-hidden="true">
+            <video class="stage-media" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/main/clip_3.avif" aria-hidden="true">
+              <source src="assets/main/clip_3.mp4" type="video/mp4" media="(max-width: 820px)">
               <source src="assets/main/clip_3.webm" type="video/webm">
               <source src="assets/main/clip_3.mp4" type="video/mp4">
             </video>
@@ -104,7 +107,8 @@
 
       <section id="dark-detail" class="dark-detail" aria-label="Dark Fantasy">
         <button class="section-back dark-detail-back" type="button" data-action="close-dark" aria-label="Back to selected shoots">←</button>
-        <video id="dark-bg" class="dark-bg" autoplay muted playsinline preload="auto" poster="assets/selected_shoots/dark_fantasy/df_bg_poster.avif" aria-hidden="true">
+        <video id="dark-bg" class="dark-bg" autoplay muted playsinline webkit-playsinline preload="auto" poster="assets/selected_shoots/dark_fantasy/df_bg_poster.avif" aria-hidden="true">
+          <source src="assets/selected_shoots/dark_fantasy/df_bg.mp4" type="video/mp4" media="(max-width: 820px)">
           <source src="assets/selected_shoots/dark_fantasy/df_bg.webm" type="video/webm">
           <source src="assets/selected_shoots/dark_fantasy/df_bg.mp4" type="video/mp4">
         </video>
@@ -120,7 +124,9 @@
       </section>
 
       <section id="orbital-detail" class="orbital-detail" aria-label="Orbital Opulence">
-        <video id="orbital-bg" class="orbital-bg" autoplay muted playsinline preload="auto" poster="assets/selected_shoots/orbital_opulence/background.avif" aria-hidden="true">
+        <button class="section-back orbital-detail-back" type="button" data-action="close-orbital" aria-label="Back to selected shoots">←</button>
+        <video id="orbital-bg" class="orbital-bg" autoplay muted playsinline webkit-playsinline preload="auto" poster="assets/selected_shoots/orbital_opulence/background.avif" aria-hidden="true">
+          <source src="assets/selected_shoots/orbital_opulence/background.mp4" type="video/mp4" media="(max-width: 820px)">
           <source src="assets/selected_shoots/orbital_opulence/background.webm" type="video/webm">
           <source src="assets/selected_shoots/orbital_opulence/background.mp4" type="video/mp4">
         </video>
@@ -134,7 +140,8 @@
 
       <section id="game-detail" class="game-detail" aria-label="Game On">
         <button class="section-back game-detail-back" type="button" data-action="close-game" aria-label="Back to selected shoots">←</button>
-        <video id="game-bg" class="game-bg" autoplay muted playsinline preload="auto" poster="assets/selected_shoots/game_on/opening.avif" aria-hidden="true">
+        <video id="game-bg" class="game-bg" autoplay muted playsinline webkit-playsinline preload="auto" poster="assets/selected_shoots/game_on/opening.avif" aria-hidden="true">
+          <source src="assets/selected_shoots/game_on/opening.mp4" type="video/mp4" media="(max-width: 820px)">
           <source src="assets/selected_shoots/game_on/opening.webm" type="video/webm">
           <source src="assets/selected_shoots/game_on/opening.mp4" type="video/mp4">
         </video>
@@ -150,7 +157,8 @@
 
       <section id="about-detail" class="about-detail" aria-label="About Tejaswi">
         <button class="section-back about-detail-back" type="button" data-action="close-about" aria-label="Back to main menu">←</button>
-        <video class="section-media about-media" autoplay muted loop playsinline preload="auto" poster="assets/about/about.avif" aria-hidden="true">
+        <video class="section-media about-media" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/about/about.avif" aria-hidden="true">
+          <source src="assets/about/about.mp4" type="video/mp4" media="(max-width: 820px)">
           <source src="assets/about/about.webm" type="video/webm">
           <source src="assets/about/about.mp4" type="video/mp4">
         </video>
@@ -169,7 +177,8 @@
 
       <section id="video-detail" class="video-detail" aria-label="Videography preview">
         <button class="section-back video-detail-back" type="button" data-action="close-video" aria-label="Back to main menu">←</button>
-        <video class="section-media video-media" autoplay muted loop playsinline preload="auto" poster="assets/videography/videography.avif" aria-hidden="true">
+        <video class="section-media video-media" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/videography/videography.avif" aria-hidden="true">
+          <source src="assets/videography/videography.mp4" type="video/mp4" media="(max-width: 820px)">
           <source src="assets/videography/videography.webm" type="video/webm">
           <source src="assets/videography/videography.mp4" type="video/mp4">
         </video>
