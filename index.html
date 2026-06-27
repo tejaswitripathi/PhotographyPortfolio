@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Photography Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=20260626-dark-fantasy-7">
   </head>
   <body>
     <main id="app" class="app" data-mode="main" data-main-slide="0" data-shoot="0">
@@ -102,6 +102,23 @@
         <div class="detail-strip" id="detail-strip"></div>
       </section>
 
+      <section id="dark-detail" class="dark-detail" aria-label="Dark Fantasy">
+        <button class="section-back dark-detail-back" type="button" data-action="close-dark" aria-label="Back to selected shoots">←</button>
+        <video id="dark-bg" class="dark-bg" autoplay muted playsinline preload="auto" poster="assets/selected_shoots/dark_fantasy/df_bg_poster.avif" aria-hidden="true">
+          <source src="assets/selected_shoots/dark_fantasy/df_bg.webm" type="video/webm">
+          <source src="assets/selected_shoots/dark_fantasy/df_bg.mp4" type="video/mp4">
+        </video>
+        <button id="dark-skip" class="dark-skip" type="button" aria-label="Skip opening">skip →</button>
+        <button id="dark-prev" class="dark-arrow dark-arrow-left" type="button" aria-label="Previous Dark Fantasy image">‹</button>
+        <div id="dark-page" class="dark-page" aria-label="Dark Fantasy image"></div>
+        <div id="dark-meta" class="dark-meta" aria-live="polite"></div>
+        <div id="dark-text" class="dark-text" aria-live="polite"></div>
+        <button id="dark-next" class="dark-arrow dark-arrow-right" type="button" aria-label="Next Dark Fantasy image">›</button>
+        <div id="dark-lightbox" class="dark-lightbox" aria-hidden="true">
+          <img id="dark-lightbox-img" src="" alt="Dark Fantasy enlarged">
+        </div>
+      </section>
+
       <section id="orbital-detail" class="orbital-detail" aria-label="Orbital Opulence">
         <video id="orbital-bg" class="orbital-bg" autoplay muted playsinline preload="auto" poster="assets/selected_shoots/orbital_opulence/background.avif" aria-hidden="true">
           <source src="assets/selected_shoots/orbital_opulence/background.webm" type="video/webm">
@@ -171,6 +188,6 @@
       <span class="music-note" aria-hidden="true">♪</span>
     </button>
 
-    <script src="script.js"></script>
+    <script src="script.js?v=20260626-dark-fantasy-7"></script>
   </body>
 </html>

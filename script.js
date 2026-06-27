@@ -14,6 +14,16 @@ const aboutDown = document.querySelector("#about-down");
 const contactButton = document.querySelector("#contact-button");
 const instagramLink = document.querySelector("#instagram-link");
 const checkItOutButton = document.querySelector("#check-it-out");
+const darkDetail = document.querySelector("#dark-detail");
+const darkBg = document.querySelector("#dark-bg");
+const darkPage = document.querySelector("#dark-page");
+const darkMeta = document.querySelector("#dark-meta");
+const darkText = document.querySelector("#dark-text");
+const darkPrev = document.querySelector("#dark-prev");
+const darkNext = document.querySelector("#dark-next");
+const darkSkip = document.querySelector("#dark-skip");
+const darkLightbox = document.querySelector("#dark-lightbox");
+const darkLightboxImg = document.querySelector("#dark-lightbox-img");
 const orbitalDetail = document.querySelector("#orbital-detail");
 const orbitalVideo = document.querySelector("#orbital-bg");
 const orbitalGrid = document.querySelector("#orbital-grid");
@@ -38,6 +48,13 @@ const mainSound = document.querySelector("#main-sound");
 
 const mainPages = ["about", "selected-shoots", "videography"];
 const youtubeUrl = "https://www.youtube.com/watch?v=KhVcjx1VHxk";
+const darkBgPosterSrc = "assets/selected_shoots/dark_fantasy/df_bg_poster.avif";
+const darkBgLoopPosterSrc = "assets/selected_shoots/dark_fantasy/df_bg_loop_poster.avif";
+const darkBgSrc = "assets/selected_shoots/dark_fantasy/df_bg.webm";
+const darkBgLoopSrc = "assets/selected_shoots/dark_fantasy/df_bg_loop.webm";
+const darkNextSrc = "assets/selected_shoots/dark_fantasy/df_turn_next.webm";
+const darkPrevSrc = "assets/selected_shoots/dark_fantasy/df_turn_prev.webm";
+const darkLoopStartSeconds = 11.02;
 const orbitalRevealSeconds = 16;
 const orbitalOpeningSrc = "assets/selected_shoots/orbital_opulence/background.avif";
 const orbitalLoopSrc = "assets/selected_shoots/orbital_opulence/background_loop.avif";
@@ -73,6 +90,13 @@ const gameImageShapes = {
   "_DSC7763.avif": "landscape",
   "_DSC7935.avif": "landscape"
 };
+const darkImages = [
+  "cover.avif",
+  "_DSC8899.avif",
+  "_DSC8883.avif",
+  "_DSC8828.avif",
+  "_DSC8917.avif"
+];
 const shoots = [
   {
     slug: "dark_fantasy",
@@ -132,6 +156,20 @@ const gameAmbienceAudio = new Audio("assets/selected_shoots/game_on/ambience.opu
 gameAmbienceAudio.loop = true;
 gameAmbienceAudio.preload = "auto";
 gameAmbienceAudio.volume = 0;
+const darkAmbienceAudio = new Audio("assets/selected_shoots/dark_fantasy/ambience.opus");
+darkAmbienceAudio.loop = true;
+darkAmbienceAudio.preload = "auto";
+darkAmbienceAudio.volume = 0;
+const darkSecundaAudio = new Audio("assets/selected_shoots/dark_fantasy/secunda.opus");
+darkSecundaAudio.loop = true;
+darkSecundaAudio.preload = "auto";
+darkSecundaAudio.volume = 0;
+const darkPageTurnNextAudio = new Audio("assets/selected_shoots/dark_fantasy/page_turn_next.opus");
+darkPageTurnNextAudio.preload = "auto";
+darkPageTurnNextAudio.volume = .82;
+const darkPageTurnPrevAudio = new Audio("assets/selected_shoots/dark_fantasy/page_turn_prev.opus");
+darkPageTurnPrevAudio.preload = "auto";
+darkPageTurnPrevAudio.volume = .82;
 
 let mainIndex = 0;
 let shootIndex = 0;
@@ -141,6 +179,11 @@ let unlockedAudio = false;
 let musicMuted = false;
 let aboutTextTimer;
 let openingExternalFromKeyboard = false;
+let hydratingRoute = false;
+let darkSelectedIndex = 0;
+let darkPendingIndex = null;
+let darkVideoState = "bg";
+let darkLoopReadyToken = 0;
 let orbitalSelectedIndex = 0;
 let gameSelectedIndex = 0;
 let gameReady = false;
@@ -186,6 +229,49 @@ let orbitalMetadata = {
 let orbitalRevealTimer;
 let gameRevealTimer;
 let gameOpeningTimer;
+let darkMetadata = {
+  "cover.avif": {
+    camera: "Sony a7 IV",
+    lens: "FE 24-105mm F4 G OSS",
+    "shutter speed": "1/100",
+    ISO: "800",
+    text: "What is a knight scarred yet still helmetless?\nHis heart beats a drum of war.",
+    models: ["joshywoshyboii"]
+  },
+  "_DSC8899.avif": {
+    camera: "Sony a7 IV",
+    lens: "FE 24-105mm F4 G OSS",
+    "shutter speed": "1/100",
+    ISO: "800",
+    text: "The lady awakens to such a world...",
+    models: ["ava_bryn__"]
+  },
+  "_DSC8883.avif": {
+    camera: "Sony a7 IV",
+    lens: "FE 24-105mm F4 G OSS",
+    "shutter speed": "1/100",
+    ISO: "800",
+    text: "And its darkness wounds her.",
+    models: ["ava_bryn__"]
+  },
+  "_DSC8828.avif": {
+    camera: "Sony a7 IV",
+    lens: "FE 24-105mm F4 G OSS",
+    "shutter speed": "1/100",
+    ISO: "800",
+    text: "Yet she persists.",
+    models: ["joshywoshyboii", "ava_bryn__"]
+  },
+  "_DSC8917.avif": {
+    camera: "Sony a7 IV",
+    lens: "FE 24-105mm F4 G OSS",
+    "shutter speed": "1/100",
+    ISO: "800",
+    text: "This scar shall fade.",
+    models: ["joshywoshyboii", "ava_bryn__"]
+  },
+  display: "Shot on {camera}, {lens} \n ISO {ISO}, {shutter speed} \n Model(s): {models}"
+};
 let gameMetadata = {
   "cover.avif": {
     camera: "Sony a7 IV",
@@ -248,8 +334,8 @@ function playVisualVideos() {
 function setVideoAsset(video, posterSrc, options = {}) {
   if (!video) return;
 
-  const { restart = false, loop = true } = options;
-  const base = posterSrc.replace(/\.[^/.]+$/, "");
+  const { baseSrc = posterSrc, restart = false, loop = true } = options;
+  const base = baseSrc.replace(/\.[^/.]+$/, "");
   const cacheToken = restart ? `?reset=${Date.now()}` : "";
   const sourceByType = {
     "video/webm": `${base}.webm${cacheToken}`,
@@ -279,7 +365,20 @@ function clearVideoAsset(video) {
 function unlockAudio() {
   if (unlockedAudio) return;
   unlockedAudio = true;
-  [clickSound, enterSound, backSound, mainSound, orbitalAudio, gameOpeningAudio, gameAmbienceAudio, ...shootAudio].forEach((audio) => {
+  [
+    clickSound,
+    enterSound,
+    backSound,
+    mainSound,
+    orbitalAudio,
+    gameOpeningAudio,
+    gameAmbienceAudio,
+    darkAmbienceAudio,
+    darkSecundaAudio,
+    darkPageTurnNextAudio,
+    darkPageTurnPrevAudio,
+    ...shootAudio
+  ].forEach((audio) => {
     audio.muted = false;
   });
   playVisualVideos();
@@ -287,7 +386,7 @@ function unlockAudio() {
 }
 
 function pauseMusic() {
-  [mainSound, orbitalAudio, gameOpeningAudio, gameAmbienceAudio, ...shootAudio].forEach((audio) => {
+  [mainSound, orbitalAudio, gameOpeningAudio, gameAmbienceAudio, darkAmbienceAudio, darkSecundaAudio, ...shootAudio].forEach((audio) => {
     if (!audio) return;
     fadeTokens.set(audio, (fadeTokens.get(audio) || 0) + 1);
     audio.pause();
@@ -355,6 +454,8 @@ function syncRoute() {
     history.replaceState(null, "", `#/about/page/${aboutIndex + 1}`);
   } else if (mode === "video") {
     history.replaceState(null, "", "#/videography/preview");
+  } else if (mode === "dark") {
+    history.replaceState(null, "", "#/selected-shoots/dark_fantasy/gallery");
   } else if (mode === "orbital") {
     history.replaceState(null, "", "#/selected-shoots/orbital_opulence/gallery");
   } else if (mode === "game") {
@@ -378,6 +479,8 @@ function syncAmbientAudio() {
     fadeAudio(orbitalAudio, 0, 110);
     fadeAudio(gameOpeningAudio, 0, 110);
     fadeAudio(gameAmbienceAudio, 0, 110);
+    fadeAudio(darkAmbienceAudio, 0, 110);
+    fadeAudio(darkSecundaAudio, 0, 110);
     stopShootAudio();
     fadeAudio(mainSound, .62, 180);
   } else if (mode === "shoots") {
@@ -385,16 +488,30 @@ function syncAmbientAudio() {
     fadeAudio(orbitalAudio, 0, 110);
     fadeAudio(gameOpeningAudio, 0, 110);
     fadeAudio(gameAmbienceAudio, 0, 110);
+    fadeAudio(darkAmbienceAudio, 0, 110);
+    fadeAudio(darkSecundaAudio, 0, 110);
     playShootAudio(shootIndex);
+  } else if (mode === "dark") {
+    fadeAudio(mainSound, 0, 110);
+    fadeAudio(orbitalAudio, 0, 110);
+    fadeAudio(gameOpeningAudio, 0, 110);
+    fadeAudio(gameAmbienceAudio, 0, 110);
+    stopShootAudio();
+    fadeAudio(darkAmbienceAudio, .62, 180);
+    fadeAudio(darkSecundaAudio, .58, 180);
   } else if (mode === "orbital") {
     fadeAudio(mainSound, 0, 110);
     fadeAudio(gameOpeningAudio, 0, 110);
     fadeAudio(gameAmbienceAudio, 0, 110);
+    fadeAudio(darkAmbienceAudio, 0, 110);
+    fadeAudio(darkSecundaAudio, 0, 110);
     stopShootAudio();
     fadeAudio(orbitalAudio, .74, 180);
   } else if (mode === "game") {
     fadeAudio(mainSound, 0, 110);
     fadeAudio(orbitalAudio, 0, 110);
+    fadeAudio(darkAmbienceAudio, 0, 110);
+    fadeAudio(darkSecundaAudio, 0, 110);
     stopShootAudio();
     if (gameLooping) {
       fadeAudio(gameOpeningAudio, 0, 110);
@@ -408,6 +525,8 @@ function syncAmbientAudio() {
     fadeAudio(orbitalAudio, 0, 110);
     fadeAudio(gameOpeningAudio, 0, 110);
     fadeAudio(gameAmbienceAudio, 0, 110);
+    fadeAudio(darkAmbienceAudio, 0, 110);
+    fadeAudio(darkSecundaAudio, 0, 110);
     stopShootAudio();
   }
 }
@@ -432,7 +551,7 @@ function setMainSlide(nextIndex) {
 
   if (mode === "main") syncAmbientAudio();
 
-  syncRoute();
+  if (!hydratingRoute) syncRoute();
 }
 
 function openCurrentMainPage() {
@@ -494,6 +613,11 @@ function setShoot(nextIndex) {
 }
 
 function openShoot() {
+  if (shoots[shootIndex].slug === "dark_fantasy") {
+    openDark();
+    return;
+  }
+
   if (shoots[shootIndex].slug === "orbital_opulence") {
     openOrbital();
     return;
@@ -568,6 +692,191 @@ function formatOrbitalMetadata(fileName) {
 
 function formatGameMetadata(fileName) {
   return formatShootMetadata(gameMetadata, fileName);
+}
+
+function formatDarkMetadata(fileName) {
+  return formatShootMetadata(darkMetadata, fileName);
+}
+
+function setDarkInfoReady(isReady) {
+  darkDetail.classList.toggle("is-ready", isReady);
+  if (isReady) darkDetail.classList.remove("is-opening");
+}
+
+function switchDarkVideo(baseSrc, options = {}) {
+  const { restart = false, state = "bg", loop = false, posterSrc = darkBgPosterSrc } = options;
+  darkVideoState = state;
+  setVideoAsset(darkBg, posterSrc, {
+    baseSrc,
+    restart,
+    loop
+  });
+}
+
+function startDarkBookLoop(restart = false) {
+  const readyToken = ++darkLoopReadyToken;
+  setDarkInfoReady(false);
+  switchDarkVideo(darkBgLoopSrc, {
+    restart,
+    state: "loop",
+    loop: true,
+    posterSrc: darkBgLoopPosterSrc
+  });
+
+  const reveal = () => {
+    if (readyToken !== darkLoopReadyToken || mode !== "dark" || darkVideoState !== "loop") return;
+    darkDetail.classList.remove("is-turning", "is-opening");
+    setDarkInfoReady(true);
+  };
+
+  darkBg.addEventListener("canplay", reveal, { once: true });
+  darkBg.addEventListener("playing", reveal, { once: true });
+  requestAnimationFrame(() => {
+    if (darkBg.readyState >= 3) reveal();
+  });
+}
+
+function buildDarkPage() {
+  if (darkPage.childElementCount) return;
+
+  const image = document.createElement("img");
+  image.alt = "Dark Fantasy";
+  image.addEventListener("load", () => {
+    if (!image.naturalWidth || !image.naturalHeight) return;
+    darkPage.style.setProperty("--dark-image-aspect", `${image.naturalWidth} / ${image.naturalHeight}`);
+  });
+  darkPage.append(image);
+}
+
+function selectDarkImage(index) {
+  buildDarkPage();
+  darkSelectedIndex = Math.max(0, Math.min(darkImages.length - 1, index));
+
+  const fileName = darkImages[darkSelectedIndex];
+  const image = darkPage.querySelector("img");
+  if (image) image.src = `assets/selected_shoots/dark_fantasy/${fileName}`;
+  darkLightboxImg.src = `assets/selected_shoots/dark_fantasy/${fileName}`;
+
+  darkMeta.replaceChildren(formatDarkMetadata(fileName));
+  darkText.textContent = (darkMetadata[fileName]?.text || "").trim();
+  darkPrev.hidden = darkSelectedIndex === 0;
+  darkNext.hidden = darkSelectedIndex === darkImages.length - 1;
+}
+
+function openDarkLightbox() {
+  if (!darkDetail.classList.contains("is-ready")) return;
+  darkLightbox.setAttribute("aria-hidden", "false");
+  darkDetail.classList.add("is-zoomed");
+}
+
+function closeDarkLightbox() {
+  darkDetail.classList.remove("is-zoomed");
+  darkLightbox.setAttribute("aria-hidden", "true");
+}
+
+function skipDarkOpening() {
+  if (darkVideoState !== "opening") return;
+  startDarkBookLoop(true);
+}
+
+function completeDarkTurn() {
+  if (darkPendingIndex !== null) {
+    selectDarkImage(darkPendingIndex);
+    darkPendingIndex = null;
+  }
+  startDarkBookLoop(true);
+}
+
+function openDark() {
+  buildDarkPage();
+  shootIndex = 0;
+  app.dataset.shoot = "0";
+  darkSelectedIndex = 0;
+  darkPendingIndex = null;
+  closeDarkLightbox();
+  darkDetail.classList.remove("is-turning", "is-ready");
+  darkDetail.classList.add("is-opening");
+  selectDarkImage(darkSelectedIndex);
+  darkAmbienceAudio.currentTime = 0;
+  darkSecundaAudio.currentTime = 0;
+  switchDarkVideo(darkBgSrc, {
+    restart: true,
+    state: "opening"
+  });
+  setMode("dark");
+}
+
+function closeDark() {
+  darkPendingIndex = null;
+  darkVideoState = "opening";
+  closeDarkLightbox();
+  darkDetail.classList.remove("is-turning", "is-ready", "is-opening");
+  clearVideoAsset(darkBg);
+  setMode("shoots");
+}
+
+function turnDarkPage(direction) {
+  if (darkDetail.classList.contains("is-zoomed")) {
+    if (direction === "left") {
+      playOneShot(backSound);
+      closeDarkLightbox();
+    }
+    return;
+  }
+
+  if (darkDetail.classList.contains("is-turning")) {
+    if (direction === "left" || direction === "right") {
+      playOneShot(clickSound);
+      completeDarkTurn();
+    }
+    return;
+  }
+
+  if (!darkDetail.classList.contains("is-ready")) {
+    if (direction === "right") {
+      playOneShot(clickSound);
+      skipDarkOpening();
+      return;
+    }
+
+    if (direction === "left") {
+      playOneShot(backSound);
+      closeDark();
+    }
+    return;
+  }
+
+  if (direction === "left") {
+    if (darkSelectedIndex === 0) {
+      playOneShot(backSound);
+      closeDark();
+      return;
+    }
+
+    darkPendingIndex = darkSelectedIndex - 1;
+    darkDetail.classList.add("is-turning");
+    setDarkInfoReady(false);
+    playOneShot(darkPageTurnPrevAudio);
+    switchDarkVideo(darkPrevSrc, {
+      restart: true,
+      state: "prev"
+    });
+    return;
+  }
+
+  if (direction === "right") {
+    if (darkSelectedIndex === darkImages.length - 1) return;
+
+    darkPendingIndex = darkSelectedIndex + 1;
+    darkDetail.classList.add("is-turning");
+    setDarkInfoReady(false);
+    playOneShot(darkPageTurnNextAudio);
+    switchDarkVideo(darkNextSrc, {
+      restart: true,
+      state: "next"
+    });
+    return;
+  }
 }
 
 function buildOrbitalGrid() {
@@ -1009,6 +1318,11 @@ function handleArrow(direction) {
     return;
   }
 
+  if (mode === "dark") {
+    turnDarkPage(direction);
+    return;
+  }
+
   if (mode === "orbital") {
     moveOrbitalSelection(direction);
     return;
@@ -1072,6 +1386,16 @@ function handleEnter() {
     return;
   }
 
+  if (mode === "dark") {
+    if (darkDetail.classList.contains("is-zoomed")) {
+      closeDarkLightbox();
+      return;
+    }
+
+    openDarkLightbox();
+    return;
+  }
+
   if (mode === "orbital") {
     if (orbitalDetail.classList.contains("is-zoomed")) {
       closeOrbitalLightbox();
@@ -1132,6 +1456,17 @@ document.addEventListener("keydown", (event) => {
     return;
   }
 
+  if (event.key === "Escape" && mode === "dark") {
+    unlockAudio();
+    playOneShot(backSound);
+    if (darkDetail.classList.contains("is-zoomed")) {
+      closeDarkLightbox();
+      return;
+    }
+    closeDark();
+    return;
+  }
+
   if (event.key === "ArrowLeft") handleArrow("left");
   if (event.key === "ArrowRight") handleArrow("right");
   if (event.key === "ArrowUp") handleArrow("up");
@@ -1177,6 +1512,55 @@ document.querySelector(".video-detail-back").addEventListener("click", () => {
   unlockAudio();
   playOneShot(backSound);
   closeVideo();
+});
+
+document.querySelector(".dark-detail-back").addEventListener("click", () => {
+  unlockAudio();
+  playOneShot(backSound);
+  closeDark();
+});
+
+darkPrev.addEventListener("click", () => {
+  unlockAudio();
+  turnDarkPage("left");
+});
+
+darkNext.addEventListener("click", () => {
+  unlockAudio();
+  turnDarkPage("right");
+});
+
+darkSkip.addEventListener("click", () => {
+  unlockAudio();
+  playOneShot(clickSound);
+  skipDarkOpening();
+});
+
+darkLightbox.addEventListener("click", () => {
+  unlockAudio();
+  closeDarkLightbox();
+});
+
+darkBg.addEventListener("ended", () => {
+  if (mode !== "dark") return;
+
+  if (darkVideoState === "opening") {
+    startDarkBookLoop(true);
+    return;
+  }
+
+  if (darkVideoState !== "loop") {
+    completeDarkTurn();
+    return;
+  }
+});
+
+darkBg.addEventListener("timeupdate", () => {
+  if (mode !== "dark" || darkVideoState !== "opening") return;
+
+  if (darkBg.currentTime >= darkLoopStartSeconds - .05) {
+    setDarkInfoReady(true);
+  }
 });
 
 aboutUp.addEventListener("click", () => {
@@ -1317,6 +1701,14 @@ fetch("assets/about/about.txt")
   })
   .catch(() => {});
 
+fetch("assets/selected_shoots/dark_fantasy/metadata.json")
+  .then((response) => response.json())
+  .then((metadata) => {
+    darkMetadata = metadata || {};
+    selectDarkImage(darkSelectedIndex);
+  })
+  .catch(() => {});
+
 fetch("assets/selected_shoots/orbital_opulence/metadata.json")
   .then((response) => response.json())
   .then((metadata) => {
@@ -1338,45 +1730,56 @@ fetch("assets/selected_shoots/game_on/metadata.json")
   .catch(() => {});
 
 function hydrateFromHash() {
+  if (hydratingRoute) return;
+
+  hydratingRoute = true;
   const [, page, shootSlug, gallery] = window.location.hash.split("/");
 
-  if (page === "about" && shootSlug === "page") {
-    const aboutPageIndex = Math.max(0, Number(gallery || 1) - 1);
-    openAbout(aboutPageIndex);
-    return;
-  }
-
-  if (page === "videography" && shootSlug === "preview") {
-    openVideo();
-    return;
-  }
-
-  if (page === "selected-shoots") {
-    const foundShoot = shoots.findIndex((shoot) => shoot.slug === shootSlug);
-    mainIndex = 1;
-    setMainSlide(1);
-    setShoot(foundShoot >= 0 ? foundShoot : 0);
-    if (gallery && shootSlug === "orbital_opulence") {
-      openOrbital();
+  try {
+    if (page === "about" && shootSlug === "page") {
+      const aboutPageIndex = Math.max(0, Number(gallery || 1) - 1);
+      openAbout(aboutPageIndex);
       return;
     }
-    if (gallery && shootSlug === "game_on") {
-      openGame();
+
+    if (page === "videography" && shootSlug === "preview") {
+      openVideo();
       return;
     }
-    setMode(gallery ? "detail" : "shoots");
-    if (gallery) openShoot();
-    return;
-  }
 
-  if (page === "videography") {
-    setMainSlide(2);
+    if (page === "selected-shoots") {
+      const foundShoot = shoots.findIndex((shoot) => shoot.slug === shootSlug);
+      mainIndex = 1;
+      setMainSlide(1);
+      setShoot(foundShoot >= 0 ? foundShoot : 0);
+      if (gallery && shootSlug === "dark_fantasy") {
+        openDark();
+        return;
+      }
+      if (gallery && shootSlug === "orbital_opulence") {
+        openOrbital();
+        return;
+      }
+      if (gallery && shootSlug === "game_on") {
+        openGame();
+        return;
+      }
+      setMode(gallery ? "detail" : "shoots");
+      if (gallery) openShoot();
+      return;
+    }
+
+    if (page === "videography") {
+      setMainSlide(2);
+      setMode("main");
+      return;
+    }
+
+    setMainSlide(0);
     setMode("main");
-    return;
+  } finally {
+    hydratingRoute = false;
   }
-
-  setMainSlide(0);
-  setMode("main");
 }
 
 window.addEventListener("hashchange", hydrateFromHash);

@@ -4,40 +4,40 @@
         "lens": "FE 24-105mm F4 G OSS",
         "shutter speed": "1/100",
         "ISO": "800",
-        "text": "The knight embarks on his journey with no helmet.",
+        "text": "What is a knight scarred yet still helmetless?\nHis heart beats a drum of war.",
         "models": ["joshywoshyboii"]
     },
-    "_DSC7595.avif": {
+    "_DSC8899.avif": {
         "camera": "Sony a7 IV",
         "lens": "FE 24-105mm F4 G OSS",
-        "shutter speed": "1/30",
-        "ISO": "5000",
-        "text": "",
-        "models": ["maya.bhatii"]
+        "shutter speed": "1/100",
+        "ISO": "800",
+        "text": "The lady awakens to such a world...",
+        "models": ["ava_bryn__"]
     },
-    "_DSC7648.avif": {
+    "_DSC8883.avif": {
         "camera": "Sony a7 IV",
        "lens": "FE 24-105mm F4 G OSS",
-        "shutter speed": "1/30",
-        "ISO": "3200",
-        "text": "",
-        "models": ["joshywoshyboii"]
+        "shutter speed": "1/100",
+        "ISO": "800",
+        "text": "And its darkness wounds her.",
+        "models": ["ava_bryn__"]
     },
-    "_DSC7763.avif": {
+    "_DSC8828.avif": {
         "camera": "Sony a7 IV",
         "lens": "FE 24-105mm F4 G OSS",
-        "shutter speed": "1/50",
-        "ISO": "2500",
-        "text": "",
-        "models": ["_yerin_yun"]
+        "shutter speed": "1/100",
+        "ISO": "800",
+        "text": "Yet she persists.",
+        "models": ["joshywoshyboii", "ava_bryn__"]
     },
-    "_DSC7935.avif": {
+    "_DSC8917.avif": {
         "camera": "Sony a7 IV",
         "lens": "FE 24-105mm F4 G OSS",
-        "shutter speed": "1/30",
-        "ISO": "2000",
-        "text": "",
-        "models": ["_yerin_yun", "weocam"]
+        "shutter speed": "1/100",
+        "ISO": "800",
+        "text": "This scar shall fade.",
+        "models": ["joshywoshyboii", "ava_bryn__"]
     },
     "display": "Shot on {camera}, {lens} \n ISO {ISO}, {shutter speed} \n Model(s): {models}"
 }
