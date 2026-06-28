@@ -1419,6 +1419,10 @@ button:focus-visible,
     object-position: center center;
   }
 
+  .main-slide[data-page="about"] .stage-media {
+    object-position: 12% center;
+  }
+
   @supports (height: 100dvh) {
     .stage-media,
     .section-media,

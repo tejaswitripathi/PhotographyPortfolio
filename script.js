@@ -190,6 +190,7 @@ let orbitalSelectedIndex = 0;
 let gameSelectedIndex = 0;
 let gameReady = false;
 let gameLooping = false;
+let lastOrbitalBackActivation = 0;
 let orbitalMetadata = {
   "cover.avif": {
     camera: "Sony a7 IV",
@@ -1025,6 +1026,21 @@ function closeOrbital() {
   setMode("shoots");
 }
 
+function activateOrbitalBack(event) {
+  if (event) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
+  const now = Date.now();
+  if (now - lastOrbitalBackActivation < 260) return;
+  lastOrbitalBackActivation = now;
+
+  unlockAudio();
+  playOneShot(backSound);
+  closeOrbital();
+}
+
 function moveOrbitalSelection(direction) {
   if (orbitalDetail.classList.contains("is-zoomed")) {
     if (direction === "left") {
@@ -1643,11 +1659,8 @@ orbitalSkip.addEventListener("click", () => {
   skipOrbitalOpening();
 });
 
-orbitalBack.addEventListener("click", () => {
-  unlockAudio();
-  playOneShot(backSound);
-  closeOrbital();
-});
+orbitalBack.addEventListener("pointerup", activateOrbitalBack);
+orbitalBack.addEventListener("click", activateOrbitalBack);
 
 orbitalLightbox.addEventListener("click", () => {
   unlockAudio();
@@ -1692,6 +1705,12 @@ gamePrev.addEventListener("click", () => {
 gameNext.addEventListener("click", () => {
   unlockAudio();
   moveGameSelection("right");
+});
+
+document.addEventListener("click", (event) => {
+  const actionButton = event.target.closest("[data-action='close-orbital']");
+  if (!actionButton) return;
+  activateOrbitalBack(event);
 });
 
 document.querySelector(".shoots-back").addEventListener("click", () => {
